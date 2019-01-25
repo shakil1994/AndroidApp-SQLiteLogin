@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.shakil.sqlitelogin.Database.MyDatabaseHelper;
 import com.example.shakil.sqlitelogin.Model.UserDetails;
@@ -49,6 +50,11 @@ public class SignUpActivity extends AppCompatActivity {
                 userDetails.setPassword(password);
 
                 long rowId = myDatabaseHelper.insertData(userDetails);
+                if (rowId > 0) {
+                    Toast.makeText(SignUpActivity.this, "Row " + rowId + " is successfully inserted.", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(SignUpActivity.this, "Data insertion failed", Toast.LENGTH_LONG).show();
+                }
 
             }
         });

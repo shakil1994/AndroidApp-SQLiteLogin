@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.shakil.sqlitelogin.Database.MyDatabaseHelper;
 
@@ -38,8 +39,14 @@ public class MainActivity extends AppCompatActivity {
                 String userName = edtUserName.getText().toString();
                 String password = edtPassword.getText().toString();
 
-                if (v.getId() == R.id.btnSignIn){
-
+                if (v.getId() == R.id.btnSignIn) {
+                    Boolean result = myDatabaseHelper.findPassword(userName, password);
+                    if (result == true) {
+                        Toast.makeText(MainActivity.this, "Login success", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MainActivity.this, ResultActivity.class));
+                    } else {
+                        Toast.makeText(MainActivity.this, "Username or password didn't match.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -47,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (v.getId() == R.id.btnSignUp){
+                if (v.getId() == R.id.btnSignUp) {
                     startActivity(new Intent(MainActivity.this, SignUpActivity.class));
                 }
             }
