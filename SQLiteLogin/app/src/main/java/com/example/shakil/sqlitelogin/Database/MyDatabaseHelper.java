@@ -1,9 +1,12 @@
 package com.example.shakil.sqlitelogin.Database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
+
+import com.example.shakil.sqlitelogin.Model.UserDetails;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
@@ -48,5 +51,17 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         catch (Exception e){
             Toast.makeText(context, "Exception : " + e, Toast.LENGTH_LONG).show();
         }
+    }
+
+    public long insertData(UserDetails userDetails) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(NAME, userDetails.getName());
+        contentValues.put(EMAIL, userDetails.getEmail());
+        contentValues.put(USERNAME, userDetails.getUserName());
+        contentValues.put(PASSWORD, userDetails.getPassword());
+
+        long rowId = sqLiteDatabase.insert(TABLE_NAME, null, contentValues);
+        return rowId;
     }
 }
